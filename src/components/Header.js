@@ -1,5 +1,8 @@
 import { useState, useEffect } from "react";
+
 import logo from "../assets/images/logo.png";
+import checkbox from "../assets/images/checkbox.svg";
+
 import { Button } from "flowbite-react";
 
 export const Header = () => {
@@ -26,11 +29,15 @@ export const Header = () => {
             Gallery
           </span>
         </div>
-        <div>
-          <div className="text-black dark:text-white">1 item Seleted</div>
+        <div className="flex items-center">
+          <img src={checkbox} alt="Checkbox" className="h-8 w-8" />
+          <span className="text-black ml-2 dark:text-white">
+            {" "}
+            1 item selected
+          </span>
         </div>
         <div>
-        <Button color="failure">Delete File</Button>
+          <Button color="failure">Delete File</Button>
         </div>
         <div>
           <label htmlFor="darkModeToggle" className="cursor-pointer relative">
