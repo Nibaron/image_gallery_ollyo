@@ -1,1 +1,0 @@
-export { img1 } from "./image-1.webp";
