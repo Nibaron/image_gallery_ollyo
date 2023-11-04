@@ -5,7 +5,7 @@ import checkbox from "../assets/images/checkbox.svg";
 
 import { Button } from "flowbite-react";
 
-export const Header = () => {
+export const Header = ({ selectedCard, onDelete }) => {
   const [darkMode, setDarkMode] = useState(
     JSON.parse(localStorage.getItem("darkMode")) || false
   );
@@ -20,9 +20,9 @@ export const Header = () => {
     }
   }, [darkMode]);
 
-  const handleClick=()=>{
-
-  }
+  const handleClick = () => {
+    onDelete();
+  };
 
   return (
     <header>
@@ -33,16 +33,23 @@ export const Header = () => {
             Gallery
           </span>
         </div>
-        <div className="flex items-center">
-          <img src={checkbox} alt="Checkbox" className="h-8 w-8" />
-          <span className="text-black ml-2 dark:text-white">
-            {" "}
-            {} item selected
-          </span>
-        </div>
-        <div>
-          <Button color="failure" onClick={handleClick}>Delete File</Button>
-        </div>
+        {selectedCard.length>0 && (
+          <div className="flex items-center">
+            <img src={checkbox} alt="Checkbox" className="h-8 w-8" />
+            <span className="text-black ml-2 dark:text-white">
+              {" "}
+              {selectedCard.length} item selected
+            </span>
+          </div>
+        )}
+
+        {selectedCard.length > 0 && (
+          <div>
+            <Button color="failure" onClick={handleClick}>
+              {selectedCard.length === 1 ? "Delete File" : "Delete Files"}
+            </Button>
+          </div>
+        )}
         <div>
           <label htmlFor="darkModeToggle" className="cursor-pointer relative">
             <button
