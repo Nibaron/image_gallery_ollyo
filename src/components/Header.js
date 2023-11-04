@@ -20,6 +20,10 @@ export const Header = () => {
     }
   }, [darkMode]);
 
+  const handleClick=()=>{
+
+  }
+
   return (
     <header>
       <nav className="bg-white border-b-2 border-gray-200 dark:bg-gray-900 dark:border-b-1 dark:border-gray-900 p-4 flex items-center justify-between">
@@ -33,11 +37,11 @@ export const Header = () => {
           <img src={checkbox} alt="Checkbox" className="h-8 w-8" />
           <span className="text-black ml-2 dark:text-white">
             {" "}
-            1 item selected
+            {} item selected
           </span>
         </div>
         <div>
-          <Button color="failure">Delete File</Button>
+          <Button color="failure" onClick={handleClick}>Delete File</Button>
         </div>
         <div>
           <label htmlFor="darkModeToggle" className="cursor-pointer relative">
