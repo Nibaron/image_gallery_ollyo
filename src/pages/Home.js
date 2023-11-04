@@ -1,6 +1,5 @@
 import React, { useState } from "react";
-import { Button } from "flowbite-react";
-import { CustomCard } from "../components";
+import { CustomCard, Header } from "../components";
 
 import img1 from "../assets/images/card/image-1.webp";
 import img2 from "../assets/images/card/image-2.webp";
@@ -38,7 +37,7 @@ export const Home = () => {
       return prevCardData.map((card) => {
         if (card.id === id) {
           const clicked = !card.clicked;
-          // Toggle the card's state in selectedCard
+          
           const selectedCardIndex = selectedCard.findIndex(
             (selected) => selected.id === id
           );
@@ -65,26 +64,24 @@ export const Home = () => {
   };
 
   return (
-    <main>
-      <span>
-        {`Size: ${selectedCard.length}`}
-        <Button onClick={handleDelete}>Del</Button>
-      </span>
-
-      <section className="container mx-auto">
-        <div className="grid grid-cols-3 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
-          {cardData.map((card, index) => (
-            <CustomCard
-              key={card.id}
-              card={card}
-              isFeatured={index === 0}
-              selectedCard={selectedCard}
-              cardData={cardData}
-              onClick={handleCardClick}
-            />
-          ))}
-        </div>
-      </section>
-    </main>
+    <>
+      <Header selectedCard={selectedCard} onDelete={handleDelete} />
+      <main>
+        <section className="container mx-auto">
+          <div className="grid grid-cols-3 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
+            {cardData.map((card, index) => (
+              <CustomCard
+                key={card.id}
+                card={card}
+                isFeatured={index === 0}
+                selectedCard={selectedCard}
+                cardData={cardData}
+                onClick={handleCardClick}
+              />
+            ))}
+          </div>
+        </section>
+      </main>
+    </>
   );
 };
