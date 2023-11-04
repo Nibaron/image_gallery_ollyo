@@ -1,5 +1,5 @@
 export { Header } from "./Header";
 export { Footer } from "./Footer";
 
-export { Card } from "./Card";
+export { CustomCard } from "./CustomCard";
 export { Button } from "./Button";
