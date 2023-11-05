@@ -1,10 +1,9 @@
 import React, { useState } from "react";
 import { CustomCard, Header } from "../components";
 
-
 export const Home = () => {
   const [cardData, setCardData] = useState([
-    { id: 1, image: "images/image-1.webp", clicked: false },
+    { id: 1, image: "images/image-11.jpeg", clicked: false },
     { id: 2, image: "images/image-2.webp", clicked: false },
     { id: 3, image: "images/image-3.webp", clicked: false },
     { id: 4, image: "images/image-4.webp", clicked: false },
@@ -14,13 +13,14 @@ export const Home = () => {
     { id: 8, image: "images/image-8.webp", clicked: false },
     { id: 9, image: "images/image-9.webp", clicked: false },
     { id: 10, image: "images/image-10.jpeg", clicked: false },
-    { id: 11, image: "images/image-11.jpeg", clicked: false },
+    { id: 11, image: "images/image-1.webp", clicked: false },
     { id: 12, image: "images/upload.png", clicked: false },
   ]);
 
   const [selectedCard, setSelectedCard] = useState([]);
 
   const handleCardClick = (id) => {
+    if(id===12) return;
     setCardData((prevCardData) => {
       return prevCardData.map((card) => {
         if (card.id === id) {
@@ -50,13 +50,13 @@ export const Home = () => {
     setCardData(updatedCardData);
     setSelectedCard([]);
   };
-
+  
   return (
     <>
       <Header selectedCard={selectedCard} onDelete={handleDelete} />
       <main>
-        <section className="container mx-auto">
-          <div className="grid grid-cols-3 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
+        <section className="container justify-evenly">
+          <div className="grid justify-evenly md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
             {cardData.map((card, index) => (
               <CustomCard
                 key={card.id}

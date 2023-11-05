@@ -1,7 +1,7 @@
 import React from "react";
 import markedSVG from "../assets/images/checkbox.svg";
 
-export const CustomCard = ({ card, isFeatured, onClick }) => {
+export const CustomCard = ({ card, onClick , isFeatured}) => {
   const { id, image, clicked } = card;
 
   const handleClick = () => {
@@ -10,11 +10,12 @@ export const CustomCard = ({ card, isFeatured, onClick }) => {
 
   return (
     <div
-      className={`relative max-w-sm rounded ${
+      className={`relative max-w rounded border-2 ${
         isFeatured
-          ? "col-span-2 row-span-2 border-4 border-green-500"
-          : "border-2"
-      } ${clicked ? "border-red-500" : ""} dark:bg-white hover:shadow-md transition-transform duration-300 transform hover:scale-105`}
+          ? "col-span-2 row-span-2 border-green-500": ""
+      } ${
+        clicked ? " border-red-500" : ""
+      } dark:bg-white hover:shadow-md transition-transform duration-300 transform hover:scale-105`}
       onClick={handleClick}
     >
       {clicked && (
