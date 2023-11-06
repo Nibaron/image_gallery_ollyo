@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import { CustomCard, Header } from "../components";
 
 export const Home = () => {
@@ -16,16 +17,15 @@ export const Home = () => {
     { id: 11, image: "images/image-1.webp", clicked: false },
     { id: 12, image: "images/upload.png", clicked: false },
   ]);
-
   const [selectedCard, setSelectedCard] = useState([]);
 
   const handleCardClick = (id) => {
-    if(id===12) return;
+    if (id === 12) return;
     setCardData((prevCardData) => {
       return prevCardData.map((card) => {
         if (card.id === id) {
           const clicked = !card.clicked;
-          
+
           const selectedCardIndex = selectedCard.findIndex(
             (selected) => selected.id === id
           );
@@ -50,26 +50,52 @@ export const Home = () => {
     setCardData(updatedCardData);
     setSelectedCard([]);
   };
-  
+  const handleOnDragEnd = (result) => {
+    if (!result.destination) return;
+    const items = Array.from(cardData);
+    const [reorderedItem] = items.splice(result.source.index, 1);
+    items.splice(result.destination.index, 0, reorderedItem);
+
+    setCardData(items);
+  };
+
   return (
-    <>
+    <DragDropContext onDragEnd={handleOnDragEnd}>
       <Header selectedCard={selectedCard} onDelete={handleDelete} />
       <main>
-        <section className="container justify-evenly">
-          <div className="grid justify-evenly md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
-            {cardData.map((card, index) => (
-              <CustomCard
-                key={card.id}
-                card={card}
-                isFeatured={index === 0}
-                selectedCard={selectedCard}
-                cardData={cardData}
-                onClick={handleCardClick}
-              />
-            ))}
-          </div>
+        <section className="container mx-auto">
+          <Droppable droppableId="cards" direction="horizontal">
+            {(provided) => (
+              <div
+                className="grid justify-evenly md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4"
+                {...provided.droppableProps}
+                ref={provided.innerRef}
+              >
+                {cardData.map((card, index) => (
+                  <Draggable
+                    key={card.id}
+                    draggableId={card.id.toString()}
+                    index={index}
+                  >
+                    {(provided) => (
+                      <CustomCard
+                        key={card.id}
+                        card={card}
+                        isFeatured={index === 0}
+                        selectedCard={selectedCard}
+                        cardData={cardData}
+                        onClick={handleCardClick}
+                        provided={provided}
+                      />
+                    )}
+                  </Draggable>
+                ))}
+                {provided.placeholder}
+              </div>
+            )}
+          </Droppable>
         </section>
       </main>
-    </>
+    </DragDropContext>
   );
 };

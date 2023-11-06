@@ -1,7 +1,7 @@
 import React from "react";
 import markedSVG from "../assets/images/checkbox.svg";
 
-export const CustomCard = ({ card, onClick , isFeatured}) => {
+export const CustomCard = ({ card, onClick , isFeatured, provided}) => {
   const { id, image, clicked } = card;
 
   const handleClick = () => {
@@ -17,6 +17,9 @@ export const CustomCard = ({ card, onClick , isFeatured}) => {
         clicked ? " border-red-500" : ""
       } dark:bg-white hover:shadow-md transition-transform duration-300 transform hover:scale-105`}
       onClick={handleClick}
+      {...provided.draggableProps}
+      {...provided.dragHandleProps}
+      ref={provided.innerRef}
     >
       {clicked && (
         <img
